@@ -1,0 +1,20 @@
+/* CSS แบบง่าย — ตอนสอบใช้ CSS ของอาจารย์แทนได้เลย */
+body { font-family: system-ui, sans-serif; max-width: 960px; margin: 24px auto; padding: 0 16px; background: #f6f7f9; color: #222; }
+.card { background: #fff; border: 1px solid #e3e5e8; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; }
+label { display: block; margin: 8px 0; font-size: 14px; }
+label.inline { display: flex; gap: 6px; align-items: center; }
+input, select { display: block; width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+input[type=checkbox] { width: auto; display: inline; margin: 0; }
+.row { display: flex; gap: 8px; align-items: center; }
+.row input { margin: 0; }
+.row select { width: auto; margin: 0; }
+button { padding: 8px 14px; border: 0; border-radius: 6px; background: #2563eb; color: #fff; cursor: pointer; white-space: nowrap; }
+button.secondary { background: #6b7280; }
+button.danger { background: #dc2626; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+td button { padding: 4px 8px; font-size: 13px; margin-right: 4px; }
+.cover { width: 48px; height: 68px; object-fit: cover; border-radius: 4px; background: #eee; }
+#cover-preview { width: 90px; height: 128px; }
+#review-list li { margin: 6px 0; }
+#message { position: fixed; bottom: 16px; right: 16px; background: #111; color: #fff; padding: 10px 14px; border-radius: 8px; display: none; }

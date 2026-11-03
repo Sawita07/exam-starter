@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Catalog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📚 Book Catalog</h1>
+
+  <!-- ================= ฟอร์มหนังสือ (ใช้ทั้งเพิ่มและแก้ไข) ================= -->
+  <section class="card">
+    <h2 id="book-form-title">เพิ่มหนังสือ</h2>
+    <form id="book-form">
+      <input type="hidden" id="book-id">           <!-- มีค่า = กำลังแก้ไข, ว่าง = เพิ่มใหม่ -->
+      <label>ชื่อหนังสือ * <input id="title" required></label>
+      <label>ผู้แต่ง * <input id="author" required></label>
+      <label>ปีที่พิมพ์ <input id="publishedYear" type="number"></label>
+      <label class="inline"><input id="isAvailable" type="checkbox" checked> ว่างให้ยืม</label>
+      <label>รูปปก <input id="cover" type="file" accept="image/*"></label>
+      <img id="cover-preview" class="cover" hidden>
+      <div class="row">
+        <button type="submit" id="book-submit">บันทึก</button>
+        <button type="button" id="book-cancel" class="secondary" hidden>ยกเลิกแก้ไข</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= ตารางหนังสือ ================= -->
+  <section class="card">
+    <h2>รายการหนังสือ</h2>
+    <table>
+      <thead>
+        <tr><th>ปก</th><th>ชื่อ</th><th>ผู้แต่ง</th><th>ปี</th><th>สถานะ</th><th>รีวิว</th><th></th></tr>
+      </thead>
+      <tbody id="book-list"></tbody>
+    </table>
+  </section>
+
+  <!-- ================= รีวิวของหนังสือที่เลือก (ตารางที่ 2) ================= -->
+  <section class="card" id="review-section" hidden>
+    <h2>รีวิวของ: <span id="review-book-title"></span></h2>
+    <form id="review-form" class="row">
+      <input type="hidden" id="review-id">
+      <select id="rating">
+        <option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option>
+        <option value="2">2 ★</option><option value="1">1 ★</option>
+      </select>
+      <input id="content" placeholder="ความเห็น" required>
+      <button type="submit" id="review-submit">เพิ่มรีวิว</button>
+    </form>
+    <ul id="review-list"></ul>
+  </section>
+
+  <p id="message"></p>
+
+  <!-- ลำดับสำคัญ: api.js ก่อน app.js -->
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

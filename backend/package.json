@@ -1,0 +1,20 @@
+{
+  "name": "exam-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "prisma": "6.19.3"
+  }
+}
