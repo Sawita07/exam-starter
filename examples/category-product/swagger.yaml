@@ -1,0 +1,185 @@
+openapi: 3.0.3
+info:
+  title: Product Catalog API (โจทย์ซ้อม)
+  version: 1.0.0
+  description: |
+    ระบบสินค้า: Category 1 หมวด มีได้หลาย Product
+    Product มีรูปภาพ (อัปโหลดผ่าน POST /upload แล้วเอา url ไปใส่ imageUrl)
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: Categories
+  - name: Products
+  - name: Upload
+paths:
+  /categories:
+    get:
+      tags: [Categories]
+      summary: ดึงหมวดหมู่ทั้งหมด (พร้อม products)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Category' }
+    post:
+      tags: [Categories]
+      summary: เพิ่มหมวดหมู่
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CategoryInput' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Category' }
+        '400': { description: ข้อมูลไม่ครบ }
+  /categories/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: integer } }
+    get:
+      tags: [Categories]
+      summary: ดึงหมวดหมู่ตาม id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Category' }
+        '404': { description: Category not found }
+    put:
+      tags: [Categories]
+      summary: แก้ไขหมวดหมู่
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CategoryInput' }
+      responses:
+        '200': { description: OK }
+        '404': { description: Category not found }
+    delete:
+      tags: [Categories]
+      summary: ลบหมวดหมู่ (products ในหมวดถูกลบตาม)
+      responses:
+        '200': { description: Deleted }
+        '404': { description: Category not found }
+  /products:
+    get:
+      tags: [Products]
+      summary: ดึงสินค้าทั้งหมด (กรองด้วย ?categoryId= ได้)
+      parameters:
+        - { name: categoryId, in: query, required: false, schema: { type: integer } }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Product' }
+    post:
+      tags: [Products]
+      summary: เพิ่มสินค้า
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProductInput' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '404': { description: Category not found }
+  /products/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: integer } }
+    get:
+      tags: [Products]
+      summary: ดึงสินค้าตาม id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '404': { description: Product not found }
+    put:
+      tags: [Products]
+      summary: แก้ไขสินค้า
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProductInput' }
+      responses:
+        '200': { description: OK }
+        '404': { description: Product not found }
+    delete:
+      tags: [Products]
+      summary: ลบสินค้า
+      responses:
+        '200': { description: Deleted }
+        '404': { description: Product not found }
+  /upload:
+    post:
+      tags: [Upload]
+      summary: อัปโหลดรูปภาพ
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: อัปโหลดสำเร็จ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url: { type: string, example: /uploads/1730600000000-123456.jpg }
+                  name: { type: string, example: shoe.jpg }
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id: { type: integer, example: 1 }
+        name: { type: string, example: รองเท้า }
+        products:
+          type: array
+          items: { $ref: '#/components/schemas/Product' }
+    CategoryInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, example: รองเท้า }
+    Product:
+      type: object
+      properties:
+        id: { type: integer, example: 1 }
+        name: { type: string, example: รองเท้าวิ่ง }
+        price: { type: number, example: 1290.5 }
+        imageUrl: { type: string, nullable: true, example: /uploads/1730600000000-123456.jpg }
+        categoryId: { type: integer, example: 1 }
+    ProductInput:
+      type: object
+      required: [name, price, categoryId]
+      properties:
+        name: { type: string, example: รองเท้าวิ่ง }
+        price: { type: number, example: 1290.5 }
+        imageUrl: { type: string, nullable: true, example: /uploads/1730600000000-123456.jpg }
+        categoryId: { type: integer, example: 1 }

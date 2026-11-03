@@ -1,0 +1,27 @@
+// ตัวอย่าง schema ของโจทย์ซ้อม Category + Product (แปลงจาก Swagger)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// ตารางแม่
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]                                   // เติมเอง: 1 Category มีหลาย Product
+}
+
+// ตารางลูก
+model Product {
+  id         Int      @id @default(autoincrement())
+  name       String
+  price      Float                                     // Swagger: number
+  imageUrl   String?                                   // Swagger: nullable
+  categoryId Int                                       // Foreign Key
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade) // เติมเอง
+}
