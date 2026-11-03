@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Product Catalog</h1>
+    <p>ระบบจัดการหมวดหมู่และสินค้า</p>
+  </header>
+
+  <main class="layout">
+    <!-- ===================== หมวดหมู่ ===================== -->
+    <section class="panel">
+      <h2>หมวดหมู่ (Category)</h2>
+      <form id="categoryForm" class="form">
+        <input type="hidden" id="categoryId">
+        <div class="field">
+          <label for="categoryName">ชื่อหมวดหมู่</label>
+          <input type="text" id="categoryName" placeholder="เช่น รองเท้า" required>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary" id="categorySubmitBtn">บันทึก</button>
+          <button type="button" class="btn" id="categoryCancelBtn">ยกเลิก</button>
+        </div>
+      </form>
+
+      <table class="table">
+        <thead>
+          <tr><th>#</th><th>ชื่อหมวดหมู่</th><th>จำนวนสินค้า</th><th>จัดการ</th></tr>
+        </thead>
+        <tbody id="categoryTableBody">
+          <!-- ตัวอย่างแถว (ลบได้) -->
+          <tr>
+            <td>1</td><td>ตัวอย่าง</td><td>0</td>
+            <td><button class="btn small">แก้ไข</button> <button class="btn small danger">ลบ</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===================== สินค้า ===================== -->
+    <section class="panel">
+      <h2>สินค้า (Product)</h2>
+      <form id="productForm" class="form">
+        <input type="hidden" id="productId">
+        <div class="field">
+          <label for="productName">ชื่อสินค้า</label>
+          <input type="text" id="productName" required>
+        </div>
+        <div class="field">
+          <label for="productPrice">ราคา (บาท)</label>
+          <input type="number" id="productPrice" step="0.01" min="0" required>
+        </div>
+        <div class="field">
+          <label for="productCategory">หมวดหมู่</label>
+          <select id="productCategory" required>
+            <option value="">-- เลือกหมวดหมู่ --</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="productImage">รูปสินค้า</label>
+          <input type="file" id="productImage" accept="image/*">
+          <img id="productImagePreview" class="preview" alt="">
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary" id="productSubmitBtn">บันทึก</button>
+          <button type="button" class="btn" id="productCancelBtn">ยกเลิก</button>
+        </div>
+      </form>
+
+      <table class="table">
+        <thead>
+          <tr><th>รูป</th><th>ชื่อสินค้า</th><th>ราคา</th><th>หมวดหมู่</th><th>จัดการ</th></tr>
+        </thead>
+        <tbody id="productTableBody">
+          <!-- ตัวอย่างแถว (ลบได้) -->
+          <tr>
+            <td><div class="thumb"></div></td><td>ตัวอย่างสินค้า</td><td>0.00</td><td>-</td>
+            <td><button class="btn small">แก้ไข</button> <button class="btn small danger">ลบ</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- เพิ่ม 2 บรรทัดนี้ (ลำดับสำคัญ: api.js ก่อน app.js) -->
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
